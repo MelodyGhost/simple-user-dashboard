@@ -17,6 +17,7 @@ import {
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { ReactNode } from 'react';
+import ContentDisplay from '../components/content-display';
 
 const Home: NextPage = () => {
   return (
@@ -73,6 +74,8 @@ const Home: NextPage = () => {
             <Switch id="tile-view" />
           </Stack>
         </Stack>
+        {/* Show the content */}
+        <ContentDisplay />
       </main>
     </Container>
   );
