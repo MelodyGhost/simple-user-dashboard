@@ -16,10 +16,11 @@ import {
 } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import ContentDisplay from '../components/content-display';
 
 const Home: NextPage = () => {
+  const [tileView, setTileView] = useState(false);
   return (
     <Container maxW="container.lg" padding={'8'}>
       <Head>
@@ -55,13 +56,13 @@ const Home: NextPage = () => {
               <RadioGroup>
                 <Stack direction="row">
                   <Radio colorScheme={'blackAlpha'} value="1">
-                    First
+                    All
                   </Radio>
                   <Radio colorScheme={'blackAlpha'} value="2">
-                    Second
+                    Male
                   </Radio>
                   <Radio colorScheme={'blackAlpha'} value="3">
-                    Third
+                    Female
                   </Radio>
                 </Stack>
               </RadioGroup>
@@ -71,11 +72,11 @@ const Home: NextPage = () => {
             <FormLabel htmlFor="tile-view" mb="0" minW="fit-content">
               Tile View
             </FormLabel>
-            <Switch id="tile-view" />
+            <Switch onChange={() => setTileView((v) => !v)} id="tile-view" />
           </Stack>
         </Stack>
         {/* Show the content */}
-        <ContentDisplay />
+        <ContentDisplay tileView={tileView} />
       </main>
     </Container>
   );
