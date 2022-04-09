@@ -34,7 +34,7 @@ const Home: NextPage = () => {
   }, [users]);
 
   useEffect(() => {
-    const joinedFields = users
+    const combineSearchResult = users
       .filter((user) => (filterBy === 'all' ? true : user.gender === filterBy))
       .filter((user) => {
         const {
@@ -45,7 +45,7 @@ const Home: NextPage = () => {
         let mergedField = `${first} ${last} ${email} ${username}`;
         return mergedField.includes(searchQuery);
       });
-    setFilteredUsers(joinedFields);
+    setFilteredUsers(combineSearchResult);
   }, [searchQuery, users, filterBy]);
 
   return (
