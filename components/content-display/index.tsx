@@ -4,14 +4,27 @@ import TableView from './table-view';
 import TileView from './tile-view';
 import { FaBackward, FaForward } from 'react-icons/fa';
 import usePagination from '../../hooks/usePagination';
+import { IShowUserInfo, Users } from '../../types/Users';
 
-const ContentDisplay = ({ tileView }: { tileView: boolean }) => {
+const PAGE_LIMIT = 10;
+
+const ContentDisplay = ({
+  tileView,
+  users,
+}: {
+  users: Users;
+  tileView: boolean;
+}) => {
   const { currentPage, totalPage, jumpToPage, setNextPage, setPreviousPage } =
-    usePagination(50, 10);
-  console.log(currentPage, totalPage);
+    usePagination(users.length, PAGE_LIMIT);
+  const skip = (currentPage - 1) * PAGE_LIMIT;
   return (
     <div>
-      {tileView ? <TileView /> : <TableView />}
+      {tileView ? (
+        <TileView />
+      ) : (
+        <TableView users={users.slice(skip, skip + PAGE_LIMIT)} />
+      )}
       <HStack spacing={'10px'} justifyContent="flex-end" my="2">
         <IconButton
           aria-label="previous page"

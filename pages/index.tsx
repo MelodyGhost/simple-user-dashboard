@@ -16,11 +16,21 @@ import {
 } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { ReactNode, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ContentDisplay from '../components/content-display';
+import { Users } from '../types/Users';
 
 const Home: NextPage = () => {
+  const [users, setUsers] = useState<Users>([]);
   const [tileView, setTileView] = useState(false);
+
+  useEffect(() => {
+    void fetch('https://randomuser.me/api/?results=50')
+      .then((res) => res.json())
+      .then((res) => setUsers(res.results as Users));
+  }, []);
+
+  users.length && console.log(users[0].name.last);
   return (
     <Container maxW="container.lg" padding={'8'}>
       <Head>
@@ -76,7 +86,7 @@ const Home: NextPage = () => {
           </Stack>
         </Stack>
         {/* Show the content */}
-        <ContentDisplay tileView={tileView} />
+        <ContentDisplay users={users} tileView={tileView} />
       </main>
     </Container>
   );

@@ -12,8 +12,9 @@ import {
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
+import { IShowUserInfo, Users } from '../../../types/Users';
 
-const TableView = () => {
+const TableView: React.FC<{ users: Users }> = ({ users }) => {
   return (
     <TableContainer>
       <Table size="lg">
@@ -25,29 +26,34 @@ const TableView = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {Array(4)
-            .fill('')
-            .map((_, key) => {
-              return (
-                <Tr key={key}>
-                  <Td>
-                    <Stack spacing="20px" direction="row" align="center">
-                      <Avatar src="https://bit.ly/dan-abramov" />
-                      <Box>
-                        <Text fontSize={'md'} fontWeight="bold">
-                          Dan Avrahomov
-                        </Text>
-                        <Text fontSize={'sm'} fontWeight="light">
-                          awsome@dan.com
-                        </Text>
-                      </Box>
-                    </Stack>
-                  </Td>
-                  <Td>millimetres (mm)</Td>
-                  <Td color="#999">25.4</Td>
-                </Tr>
-              );
-            })}
+          {users.map((user, key) => {
+            const {
+              email,
+              name: { last: lName, first: fName },
+              picture: { thumbnail: image },
+              login: { username },
+              registered: { date: registered },
+            } = user;
+            return (
+              <Tr key={key}>
+                <Td>
+                  <Stack spacing="20px" direction="row" align="center">
+                    <Avatar src={image} />
+                    <Box>
+                      <Text fontSize={'md'} fontWeight="bold">
+                        {`${lName}, ${fName}`}
+                      </Text>
+                      <Text fontSize={'sm'} fontWeight="light">
+                        {email}
+                      </Text>
+                    </Box>
+                  </Stack>
+                </Td>
+                <Td>{registered}</Td>
+                <Td color="#999">{username}</Td>
+              </Tr>
+            );
+          })}
         </Tbody>
       </Table>
     </TableContainer>
