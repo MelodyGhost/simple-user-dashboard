@@ -4,7 +4,7 @@ import TableView from './table-view';
 import TileView from './tile-view';
 import { FaBackward, FaForward } from 'react-icons/fa';
 import usePagination from '../../hooks/usePagination';
-import { IShowUserInfo, Users } from '../../types/Users';
+import { Users } from '../../types/Users';
 
 const PAGE_LIMIT = 10;
 

@@ -12,7 +12,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
-import { IShowUserInfo, Users } from '../../../types/Users';
+import { Users } from '../../../types/Users';
 
 const TableView: React.FC<{ users: Users }> = ({ users }) => {
   return (
@@ -49,7 +49,7 @@ const TableView: React.FC<{ users: Users }> = ({ users }) => {
                     </Box>
                   </Stack>
                 </Td>
-                <Td>{registered}</Td>
+                <Td>{registered.slice(0, 10)}</Td>
                 <Td color="#999">{username}</Td>
               </Tr>
             );
