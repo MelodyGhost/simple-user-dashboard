@@ -21,7 +21,7 @@ const ContentDisplay = ({
   return (
     <div>
       {tileView ? (
-        <TileView />
+        <TileView users={users.slice(skip, skip + PAGE_LIMIT)} />
       ) : (
         <TableView users={users.slice(skip, skip + PAGE_LIMIT)} />
       )}

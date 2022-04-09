@@ -22,13 +22,24 @@ import { Users } from '../types/Users';
 
 const Home: NextPage = () => {
   const [users, setUsers] = useState<Users>([]);
+  const [filteredUser, setFilteredUser] = useState<Users>([]);
   const [tileView, setTileView] = useState(false);
+
+  const filterUser = (param: string) => {
+    if (param === 'all') return setFilteredUser(users);
+
+    setFilteredUser(users.filter((user) => user.gender === param));
+  };
 
   useEffect(() => {
     void fetch('https://randomuser.me/api/?results=50')
       .then((res) => res.json())
       .then((res) => setUsers(res.results as Users));
   }, []);
+
+  useEffect(() => {
+    setFilteredUser(users);
+  }, [users]);
 
   users.length && console.log(users[0].name.last);
   return (
@@ -63,15 +74,15 @@ const Home: NextPage = () => {
               <Text minW="fit-content" fontWeight={'medium'}>
                 Filter by:{' '}
               </Text>
-              <RadioGroup>
+              <RadioGroup onChange={(param) => filterUser(param)}>
                 <Stack direction="row">
-                  <Radio colorScheme={'blackAlpha'} value="1">
+                  <Radio colorScheme={'blackAlpha'} value="all">
                     All
                   </Radio>
-                  <Radio colorScheme={'blackAlpha'} value="2">
+                  <Radio colorScheme={'blackAlpha'} value="male">
                     Male
                   </Radio>
-                  <Radio colorScheme={'blackAlpha'} value="3">
+                  <Radio colorScheme={'blackAlpha'} value="female">
                     Female
                   </Radio>
                 </Stack>
@@ -86,7 +97,8 @@ const Home: NextPage = () => {
           </Stack>
         </Stack>
         {/* Show the content */}
-        <ContentDisplay users={users} tileView={tileView} />
+        <ContentDisplay users={filteredUser} tileView={tileView} />
+        {/* <ContentDisplay users={{email: users., fName: 'fname', lName: 'lname', image: 'image', registered: 'registered', username: 'username'}} tileView={tileView} /> */}
       </main>
     </Container>
   );
