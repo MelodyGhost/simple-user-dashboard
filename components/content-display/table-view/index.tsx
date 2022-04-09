@@ -16,9 +16,9 @@ import { Users } from '../../../types/Users';
 
 const TableView: React.FC<{ users: Users }> = ({ users }) => {
   return (
-    <TableContainer>
-      <Table size="lg">
-        <Thead>
+    <TableContainer border="1px solid #EBF8FF" borderRadius={'lg'}>
+      <Table size="lg" variant={'simple'} colorScheme="gray">
+        <Thead bg="#EBF8FF">
           <Tr>
             <Th>Name</Th>
             <Th>Registration Date</Th>
