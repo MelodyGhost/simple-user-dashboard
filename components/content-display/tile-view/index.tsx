@@ -4,7 +4,6 @@ import React from 'react';
 const TileView = () => {
   return (
     <Wrap spacing={'15px'} m="8">
-      {/* <WrapItem> */}
       {Array(3)
         .fill('')
         .map((_, key) => (
@@ -24,7 +23,6 @@ const TileView = () => {
             </Box>
           </WrapItem>
         ))}
-      {/* </WrapItem> */}
     </Wrap>
   );
 };
